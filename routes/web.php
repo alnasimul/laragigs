@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Listing;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,44 +15,47 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// All Listings
+
 Route::get('/', function () {
     return view('listings', [
         'heading' => 'Latest listings',
-        'listings' => [
-            [
-                'id' => '1',
-                'title' => 'Listing One',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-                molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-                optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
-                obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
-                nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
-                tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
-                quia. Quo neque error repudiandae fuga?'
-            ],
-            [
-                'id' => '2',
-                'title' => 'Listing Two',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-                molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-                numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-                optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
-                obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
-                nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
-                tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
-                quia. Quo neque error repudiandae fuga?'
-            ]
-        ]
+        'listings' => Listing::all()
+    ]);
+});
+
+// Single Listing
+
+// ---------------------------
+
+// Route::get('/listings/{id}', function($id) {
+//     $listing = Listing::find($id);
+
+//     if($listing) {
+//         return view('listing', [
+//             'listing' => $listing
+//         ]);
+//     }else{
+//         abort('404');
+//     }
+// });
+
+// ---------------------------
+
+
+// we can find single listing in another way 
+
+Route::get('/listings/{listing}', function(Listing $listing){
+    return view('listing', [
+        'listing' => $listing
     ]);
 });
 
 
 
+// examples for basic learning 
 
 // -----------------
-
-// examples for basic learning 
 
 // Route::get('/hello', function () {
 //     return response('<h1>Hello World</h1>',200)
@@ -66,3 +70,5 @@ Route::get('/', function () {
 // Route::get('/search', function(Request $request) {
 //     return $request -> name . ' ' . $request -> city;
 // });
+
+// -----------------
